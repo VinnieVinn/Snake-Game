@@ -5,8 +5,6 @@ import gamelogic # type: ignore
 import main_menu
 
 
-pygame.init()
-
 grid_width = 15
 grid_height = 10
 block_size = 70

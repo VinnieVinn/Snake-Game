@@ -37,4 +37,3 @@ def addListHead(list: list, item):
 
 def removeTail(snake):
     return snake.pop(len(snake)-1)
-    
