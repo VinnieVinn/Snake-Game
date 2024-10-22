@@ -2,7 +2,7 @@ import pygame
 import random
 import graphics # type: ignore
 import gamelogic # type: ignore
-import main_menu
+import main_menu  # type: ignore
 
 
 grid_width = 15

@@ -1,6 +1,6 @@
 import pygame
 import button
-
+import os
 
 
 pygame.init()
@@ -9,6 +9,8 @@ screen_width = 800
 screen_height = 500
 button_scale = 10 # x times
 margin = 16 # pixels
+directory = os.path.dirname(os.path.realpath(__file__))
+
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Button Demo')
@@ -16,11 +18,11 @@ pygame.display.set_caption('Button Demo')
 startGame = None
 
 #Menu buttons:
-start_image = pygame.image.load("sprites/start.png").convert_alpha()
+start_image = pygame.image.load(directory + "\\sprites\\start.png").convert_alpha()
 start_button = button.Button(margin, margin, start_image, button_scale)
 
 
-exit_image = pygame.image.load("sprites/exit.png").convert_alpha()
+exit_image = pygame.image.load(directory + "\\sprites\\exit.png").convert_alpha()
 exit_button = button.Button(margin, 2*margin+start_image.get_height()*button_scale, exit_image, button_scale)
 
 
