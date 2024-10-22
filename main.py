@@ -2,6 +2,8 @@ import pygame
 import random
 import graphics # type: ignore
 import gamelogic # type: ignore
+import main_menu
+
 
 pygame.init()
 
@@ -11,7 +13,6 @@ block_size = 70
 
 graphics.display(grid_width*block_size, grid_height*block_size)
 clock = pygame.time.Clock()
-running = True
 dt = 0
 getFrames = 0
 gameSpeed = 8 # Frames
@@ -42,6 +43,7 @@ def new_input(direction):
     else:
         input_buffer[1] = direction
 
+running = main_menu.startGame
 while running:
     pygame.display.set_caption(f"Score: {score}            fps: {int(clock.get_fps())}")
     # poll for events
@@ -53,11 +55,6 @@ while running:
     
     # fill the screen with a color to wipe away anything from last frame
     graphics.clear_screen()
-    
-    if gamelogic.isCollidingWithSelf(snake):
-        exit()
-    if gamelogic.isCollidingWithWall(snake, grid_width, grid_height):
-        exit()
 
 
 
@@ -95,6 +92,12 @@ while running:
     else:
         timer += 1
 
+
+    if gamelogic.isCollidingWithSelf(snake):
+        running = False
+    if gamelogic.isCollidingWithWall(snake, grid_width, grid_height):
+        running = False
+
     # flip() the display to put your work on screen
     pygame.display.flip()
 
@@ -104,4 +107,5 @@ while running:
     dt = clock.tick(fpsLimit) / 1000
     getFrames += 1
 
+print(score)
 pygame.quit()
