@@ -5,7 +5,6 @@ import os
 def draw_text(prompt: str, font, color, x, y):
     pass
 
-
 pygame.init()
 
 
