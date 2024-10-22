@@ -24,11 +24,24 @@ UP = (0, -1)
 DOWN = (0, 1)
 RIGHT = (1, 0)
 LEFT = (-1, 0)
+last_direction = DOWN
+input_buffer = []
 
 food_pos = gamelogic.randomizeFoodPos(snake, grid_width, grid_height)
 
 timer = 0
 score = 0
+
+def new_input(direction):
+    if direction == last_direction or direction in input_buffer:
+        return
+    if direction[0] + snake_dir[0] == 0 and direction[1] + snake_dir[1] == 0:
+        return
+    print("direction + snakedir: ", direction + snake_dir)
+    if len(input_buffer) < 2:
+        input_buffer.append(direction)
+    else:
+        input_buffer[1] = direction
 
 while running:
     pygame.display.set_caption(f"Score: {score}            fps: {int(clock.get_fps())}")
@@ -56,19 +69,26 @@ while running:
 
 
     keys = pygame.key.get_pressed()
-
     
     if keys[pygame.K_w]:
-        snake_dir = UP
+        new_input(UP)
     if keys[pygame.K_s]:
-        snake_dir = DOWN
+        new_input(DOWN)
     if keys[pygame.K_d]:
-        snake_dir = RIGHT
+        new_input(RIGHT)
     if keys[pygame.K_a]:
-        snake_dir = LEFT
+        new_input(LEFT)
 
     if timer*gameSpeed / fpsLimit >= 1:
+        if len(input_buffer) != 0:
+            print(input_buffer)
+            snake_dir = input_buffer.pop(0)
+            last_direction = snake_dir
+            print(last_direction)
+            
+        
         gamelogic.addListHead(snake, snake[0]+snake_dir)
+        
         if gamelogic.hasEaten(snake, food_pos):
             food_pos = gamelogic.randomizeFoodPos(snake, grid_width, grid_height)
             score += 1
