@@ -26,7 +26,9 @@ LEFT = (-1, 0)
 last_direction = DOWN
 input_buffer = []
 
-food_pos = gamelogic.randomizeFoodPos(snake, grid_width, grid_height)
+food_pos = gamelogic.randomizeFoodPos(grid_width, grid_height, snake)
+portal_1 = gamelogic.randomizeFoodPos(grid_width, grid_height, snake + [food_pos])
+portal_2 = gamelogic.randomizeFoodPos(grid_width, grid_height, snake + [food_pos, portal_1])
 
 timer = 0
 score = 0
@@ -58,6 +60,8 @@ while running:
 
 
     graphics.drawGrid(grid_width, grid_height, block_size)
+    graphics.drawPortal(portal_1, block_size)
+    graphics.drawPortal(portal_2, block_size)
     graphics.drawSnake(snake, block_size)
     graphics.drawFood(food_pos, block_size)
 
@@ -81,8 +85,17 @@ while running:
         
         gamelogic.addListHead(snake, snake[0]+snake_dir)
         
-        if gamelogic.hasEaten(snake, food_pos):
-            food_pos = gamelogic.randomizeFoodPos(snake, grid_width, grid_height)
+        if snake[0] == portal_1:
+            snake[0] = portal_2
+        elif snake[0] == portal_2:
+            snake[0] = portal_1
+
+        if snake[-1] == portal_1 or snake[-1] == portal_2:
+            portal_1 = gamelogic.randomizeFoodPos(grid_width, grid_height, snake + [food_pos, portal_2])
+            portal_2 = gamelogic.randomizeFoodPos(grid_width, grid_height, snake + [food_pos, portal_1])
+
+        if snake[0] == food_pos:
+            food_pos = gamelogic.randomizeFoodPos(grid_width, grid_height, snake)
             score += 1
         else:
             gamelogic.removeTail(snake)

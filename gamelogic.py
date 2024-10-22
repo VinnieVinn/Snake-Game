@@ -18,19 +18,16 @@ def isCollidingWithWall(snake, grid_width, grid_height):
     if head[1] < 0: return True
     return False
 
-def randomizeFoodPos(snake, grid_width, grid_height):
+def randomizeFoodPos(grid_width, grid_height, ignore_list = []):
     global food_pos
     while True:
         pos = pygame.Vector2(random.randint(0, grid_width-1), random.randint(0, grid_height-1))
         
-        for i in snake:
+        for i in ignore_list:
             if pos == i:
                 break
-        else: 
+        else:
             return pos
-
-def hasEaten(snake, food_pos):
-    return snake[0] == food_pos
 
 def addListHead(list: list, item):
     list.insert(0, item)
