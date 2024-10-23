@@ -8,10 +8,6 @@ def draw_text(prompt: str, font, color, x, y):
 pygame.init()
 
 
-vertical_list = ["sprites/start.png",
-          "sprites/exit.png"]
-
-
 
 screen_width = 800
 screen_height = 800
