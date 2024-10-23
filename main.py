@@ -5,8 +5,8 @@ import gamelogic # type: ignore
 import main_menu  # type: ignore
 
 
-grid_width = 15
-grid_height = 10
+grid_width = 20
+grid_height = 18
 block_size = 70
 
 graphics.display(grid_width*block_size, grid_height*block_size)
@@ -83,8 +83,23 @@ while running:
             last_direction = snake_dir
             
         
+        if gamelogic.isCollidingWithSelf(snake):
+            running = False
+
+
         gamelogic.addListHead(snake, snake[0]+snake_dir)
-        
+
+        if gamelogic.isCollidingWithWall(snake, grid_width, grid_height):
+            if snake_dir == UP: 
+                snake[0][1] = grid_height-1
+            elif snake_dir == DOWN: 
+                snake[0][1] = 0
+            elif snake_dir == RIGHT:
+                snake[0][0] = 0
+            elif snake_dir == LEFT:
+                snake[0][0] = grid_width-1
+    
+
         if snake[0] == portal_1:
             snake[0] = portal_2
         elif snake[0] == portal_2:
@@ -103,11 +118,6 @@ while running:
     else:
         timer += 1
 
-
-    if gamelogic.isCollidingWithSelf(snake):
-        running = False
-    if gamelogic.isCollidingWithWall(snake, grid_width, grid_height):
-        running = False
 
     # flip() the display to put your work on screen
     pygame.display.flip()
