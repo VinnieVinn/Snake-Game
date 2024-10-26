@@ -46,14 +46,9 @@ def randomizeObstaclePos(obstacleTypes, grid_width, grid_height, ignore_list = [
     obstacle = []
     posOffset = randomizeFoodPos(grid_width, grid_height, ignore_list)
     
-
     for i in range(len(obstacleTypes[type])): 
-        #print(obstacleTypes[type][i][0]+posOffset[0])
-        #print(obstacleTypes[type][i][1]+posOffset[1])
         pos = (obstacleTypes[type][i][0] + posOffset[0], obstacleTypes[type][i][1] + posOffset[1])
         obstacle.append(pos)
-
-    #print(obstacle)
 
     return obstacle
 
