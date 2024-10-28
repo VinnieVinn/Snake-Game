@@ -4,6 +4,7 @@ import pygame
 class Text():
 	def __init__(self, x, y, prompt, font, fontSize, antialias, color, bgColor):
 		self.fontSize = fontSize
+		self.textFont = font
 		self.font = pygame.font.Font(font, fontSize)
 		self.x = x
 		self.y = y
@@ -36,7 +37,14 @@ class Text():
 		self.prompt = value
 		self.text = self.font.render(self.prompt, self.antialias, self.color, self.bgColor)
 
-		
+	def set_font_size(self, value):
+		self.font = pygame.font.Font(self.textFont, int(value))
+		self.text = self.font.render(self.prompt, self.antialias, self.color, self.bgColor)
+		self.width, self.height = self.font.size(self.prompt)
+		self.rect = self.text.get_rect()
+
+	
+
 	def draw(self, surface):
 		#draw button on screen
 		surface.blit(self.text, (self.rect.x, self.rect.y))

@@ -21,7 +21,6 @@ pygame.init()
 
 
 
-
 screen_width = 800
 screen_height = 800
 button_scale = 3 # x times
@@ -55,12 +54,6 @@ options = [{"Start":load_img("\\sprites\\start.png")},
 
 
 
-# Exit
-
-
-startGame = False
-
-
 i = 0
 itemVerticalOffset = margin[1]
 for dict in options:
@@ -71,12 +64,12 @@ for dict in options:
     for pair in dict.items():
         pair[1].set_x(itemHorizontalOffset)
         pair[1].set_y(itemVerticalOffset)
+
         if isinstance(pair[1], button.Button): # IMG
             imgSize = (pair[1].get_width(), pair[1].get_height())
-            print(imgSize)
             options[i].update({pair[0]:pair[1]})
-            #options[i].update({pair[0]:button.Button(itemHorizontalOffset, itemVerticalOffset, img, button_scale)})
             itemHorizontalOffset += imgSize[0] * button_scale + margin[0]
+
         elif isinstance(pair[1], text.Text): # TEXT 
             textSize = (pair[1].get_width(), pair[1].get_height())
             options[i].update({pair[0]:pair[1]})
@@ -93,6 +86,8 @@ for dict in options:
     i += 1
 
 
+startGame = False
+
 running = True
 while running: 
 
@@ -100,7 +95,8 @@ while running:
     for event in pygame.event.get():
         #quit game
         if event.type == pygame.QUIT:
-            running = False
+            programRunning = False
+            exit()
     
     # Graphics
     screen.fill(backgroundColor)
@@ -108,9 +104,7 @@ while running:
 
     # Render loop
     for dict in options:
-        for item in dict.values():
-            #print("AAAA ", dict.values())
-            #print("AAAAA ", item)            
+        for item in dict.values():          
             if isinstance(item, button.Button): # IMG
                 item.draw(screen)
             elif isinstance(item, text.Text): # TEXT 
@@ -120,11 +114,9 @@ while running:
     
 
     if options[0].get("Start").pressed():
-        print('START')
         startGame = True
         running = False
     if options[-1].get("Exit").pressed():
-        print("EXIT")
         running = False
 
     if options[2].get("PlayersLeftArrow").pressed():

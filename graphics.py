@@ -1,5 +1,6 @@
 import pygame
 import random
+import text
 
 screen = None
 screen_color = "black"
@@ -45,6 +46,17 @@ def drawObstacles(obstacle: list, block_size):
         pygame.draw.rect(screen, obstacle_color, rect)
 
 
+def draw_end_screen(scoreText: text.Text, underText: text.Text):
+    margin = 10
+    
+    scoreText.set_font_size(screen.get_width() / 20)
+    underText.set_font_size(screen.get_width() / 30)
+
+    scoreText.rect.center = (screen.get_width() / 2, screen.get_height() / 2)
+    underText.rect.center = (screen.get_width() / 2, screen.get_height() / 2 + scoreText.get_height() + margin)
+
+    scoreText.draw(screen)
+    underText.draw(screen)
 
 def clear_screen():
     screen.fill("black")
