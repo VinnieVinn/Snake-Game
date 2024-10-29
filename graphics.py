@@ -16,9 +16,9 @@ def drawGrid(width, height, block_size: int):
             pygame.draw.rect(screen, randomize_color(grid_first_color, grid_last_color), rect, 1)
 
 
-def drawSnake(snake: list, block_size: int):
-    snake_color_iteration = ((snake_first_color[0]-snake_last_color[0])/len(snake), (snake_first_color[1]-snake_last_color[1])/len(snake), (snake_first_color[2]-snake_last_color[2])/len(snake))
-    new_snake_color = snake_first_color
+def drawSnake(snake: list, block_size: int, player):
+    snake_color_iteration = tuple(map(lambda a, b : (a - b)/len(snake), snake_first_color[player], snake_last_color[player]))
+    new_snake_color = snake_first_color[player]
 
     for i in range(len(snake)):
         rect = pygame.Rect(snake[i][0]*block_size, snake[i][1]*block_size, block_size, block_size)
@@ -75,8 +75,8 @@ screen_color = "black"
 grid_first_color = (0,0,0)
 grid_last_color = (33,33,33)
 
-snake_first_color = (0,255,0)
-snake_last_color = (0,150,0)
+snake_first_color = [(0,255,0), (255, 0, 0)]
+snake_last_color = [(0,150,0), (150, 0, 0)]
 
 portal_first_color = (0,0,150)
 portal_last_color = (0,200,255)

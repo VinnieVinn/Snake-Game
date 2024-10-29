@@ -1,13 +1,13 @@
 import pygame
 import random
 
-def isCollidingWithSelf(snake):
-    head = snake[0]
-    for i in range(1, len(snake)): # Kanske ska vara -1 här?? Vet inte, fattar mig inte på range()...
-        if head == snake[i]:
-            return True
-    else:
-        return False
+def isCollidingWithSnake(snakes, player):
+    head = snakes[player][0]
+    for i in range(0, len(snakes)): # Kanske ska vara -1 här?? Vet inte, fattar mig inte på range()...
+        for j in range(1, len(snakes[i])):
+            if head == snakes[i][j]:
+                return True
+    return False
 
 
 def isCollidingWithWall(snake, grid_width, grid_height):
@@ -26,7 +26,6 @@ def isCollidingWithObstacle(snake, obstacles):
             return True
     else:
         return False
-
 
 def randomPos(grid_width, grid_height, ignore_list = []):
     global food_pos
