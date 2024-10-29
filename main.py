@@ -1,8 +1,10 @@
 import pygame
+import random
 import graphics # type: ignore
 import gamelogic # type: ignore
 import main_menu  # type: ignore
 import text
+import filehandler
 pygame.init()
 
 grid_width = main_menu.gridWidth
@@ -36,14 +38,16 @@ for i in range(obstacleAmount):
     obstacles += gamelogic.randomizeObstaclePos(obstacleTypes, grid_width, grid_height, snake + obstacles)
 
 
-food_pos = gamelogic.randomizeFoodPos(grid_width, grid_height, snake + obstacles)
-portal_1 = pygame.Vector2(gamelogic.randomizeFoodPos(grid_width, grid_height, snake + obstacles + [food_pos]))
-portal_2 = pygame.Vector2(gamelogic.randomizeFoodPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1]))
+food_pos = gamelogic.randomPos(grid_width, grid_height, snake + obstacles)
+portal_1 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos]))
+portal_2 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1]))
 
 
 timer = 0
 score = 0
+highscore = filehandler.get_best()
 
+end = False
 
 def new_input(direction):
     if direction == last_direction or direction in input_buffer:
@@ -55,13 +59,9 @@ def new_input(direction):
     else:
         input_buffer[1] = direction
 
-
-
-
-end = False
 running = main_menu.startGame
 while running:
-    pygame.display.set_caption(f"Score: {score}            fps: {int(clock.get_fps())}")
+    pygame.display.set_caption(f"Score: {score}            Highscore: {highscore if int(highscore) > score else score}            fps: {int(clock.get_fps())}")
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
@@ -128,11 +128,11 @@ while running:
                 snake[0] = portal_1
 
             if snake[-1] == portal_1 or snake[-1] == portal_2:
-                portal_1 = pygame.Vector2(gamelogic.randomizeFoodPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_2]))
-                portal_2 = pygame.Vector2(gamelogic.randomizeFoodPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1]))
+                portal_1 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_2]))
+                portal_2 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1]))
 
             if snake[0] == food_pos:
-                food_pos = gamelogic.randomizeFoodPos(grid_width, grid_height, snake + obstacles)
+                food_pos = gamelogic.randomPos(grid_width, grid_height, snake + obstacles)
                 score += 1
             else:
                 gamelogic.removeTail(snake)
@@ -149,3 +149,7 @@ while running:
     # independent physics.
     dt = clock.tick(fpsLimit) / 1000
     getFrames += 1
+
+print(score)
+filehandler.add_score(score)
+pygame.quit()

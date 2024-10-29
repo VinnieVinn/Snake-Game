@@ -28,7 +28,7 @@ def isCollidingWithObstacle(snake, obstacles):
         return False
 
 
-def randomizeFoodPos(grid_width, grid_height, ignore_list = []):
+def randomPos(grid_width, grid_height, ignore_list = []):
     global food_pos
     while True:
         #pos = pygame.Vector2(random.randint(0, grid_width-1), random.randint(0, grid_height-1))
@@ -44,7 +44,7 @@ def randomizeFoodPos(grid_width, grid_height, ignore_list = []):
 def randomizeObstaclePos(obstacleTypes, grid_width, grid_height, ignore_list = []):
     type = random.randint(0, len(obstacleTypes)-1)
     obstacle = []
-    posOffset = randomizeFoodPos(grid_width, grid_height, ignore_list)
+    posOffset = randomPos(grid_width, grid_height, ignore_list)
     
     for i in range(len(obstacleTypes[type])): 
         pos = (obstacleTypes[type][i][0] + posOffset[0], obstacleTypes[type][i][1] + posOffset[1])
