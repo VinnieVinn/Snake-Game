@@ -104,7 +104,7 @@ while running:
 
     # Render loop
     for dict in options:
-        for item in dict.values():          
+        for item in dict.values():  
             if isinstance(item, button.Button): # IMG
                 item.draw(screen)
             elif isinstance(item, text.Text): # TEXT 

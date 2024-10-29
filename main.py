@@ -72,21 +72,15 @@ while running:
 
     if end: 
         scoreText = text.Text(0, 0, f"Du fick {score} poäng!", "freesansbold.ttf", 0, True, "white", "black")
-        underText = text.Text(0, 0, "Bla Bla tryck mellanslag.", "freesansbold.ttf", 0, True, (200,200,200), "black")
+        underText = text.Text(0, 0, "Tryck på mellanslag för att avsluta", "freesansbold.ttf", 0, True, (200,200,200), "black")
         graphics.draw_end_screen(scoreText, underText)
 
         if keys[pygame.K_SPACE]:
             running = False
     else:
-        # fill the screen with a color to wipe away anything from last frame
-        graphics.clear_screen()
-
-        graphics.drawGrid(grid_width, grid_height, block_size)
-        graphics.drawObstacles(obstacles, block_size)
-        graphics.drawPortal(portal_1, block_size)
-        graphics.drawPortal(portal_2, block_size)
-        graphics.drawSnake(snake, block_size)
-        graphics.drawFood(food_pos, block_size)
+        graphics.drawSnake(snake, block_size) # NECESSARY!
+        graphics.drawFood(food_pos, block_size) # NECESSARY!
+        graphics.drawObstacles(obstacles, block_size) # NECESSARY!
 
 
         if keys[pygame.K_w]:
@@ -99,6 +93,15 @@ while running:
             new_input(LEFT)
 
         if timer*gameSpeed >= fpsLimit:
+            graphics.clear_screen() # NECESSARY!
+
+            graphics.drawGrid(grid_width, grid_height, block_size)
+            graphics.drawObstacles(obstacles, block_size)
+            graphics.drawPortal(portal_1, block_size)
+            graphics.drawPortal(portal_2, block_size)
+            graphics.drawSnake(snake, block_size)
+            graphics.drawFood(food_pos, block_size)
+
             if len(input_buffer) != 0:
                 snake_dir = input_buffer.pop(0)
                 last_direction = snake_dir

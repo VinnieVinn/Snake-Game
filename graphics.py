@@ -2,14 +2,6 @@ import pygame
 import random
 import text
 
-screen = None
-screen_color = "black"
-grid_color = (33,33,33)
-snake_color = "green"
-portal_color = "blue"
-food_color = "red"
-obstacle_color = (200,200,200)
-
 
 def display(x, y):
     global screen
@@ -21,13 +13,19 @@ def drawGrid(width, height, block_size: int):
     for x in range(0, width):
         for y in range(0, height):
             rect = pygame.Rect(x*block_size, y*block_size, block_size, block_size)
-            pygame.draw.rect(screen, grid_color, rect, 1)
+            pygame.draw.rect(screen, randomize_color(grid_first_color, grid_last_color), rect, 1)
 
 
 def drawSnake(snake: list, block_size: int):
+    snake_color_iteration = ((snake_first_color[0]-snake_last_color[0])/len(snake), (snake_first_color[1]-snake_last_color[1])/len(snake), (snake_first_color[2]-snake_last_color[2])/len(snake))
+    new_snake_color = snake_first_color
+
     for i in range(len(snake)):
         rect = pygame.Rect(snake[i][0]*block_size, snake[i][1]*block_size, block_size, block_size)
-        pygame.draw.rect(screen, snake_color, rect)
+        
+        new_snake_color = (new_snake_color[0]-snake_color_iteration[0], new_snake_color[1]-snake_color_iteration[1], new_snake_color[2]-snake_color_iteration[2])
+        print(i, " : ", new_snake_color)
+        pygame.draw.rect(screen, new_snake_color, rect)
 
 
 def drawFood(pos: tuple, block_size):
@@ -37,7 +35,7 @@ def drawFood(pos: tuple, block_size):
 
 def drawPortal(pos: tuple, block_size):
     rect = pygame.Rect(pos[0]*block_size, pos[1]*block_size, block_size, block_size)
-    pygame.draw.rect(screen, portal_color, rect, 10, 20)
+    pygame.draw.rect(screen, randomize_color(portal_first_color, portal_last_color), rect, 10, 20)
 
 
 def drawObstacles(obstacle: list, block_size):
@@ -58,5 +56,32 @@ def draw_end_screen(scoreText: text.Text, underText: text.Text):
     scoreText.draw(screen)
     underText.draw(screen)
 
+
 def clear_screen():
     screen.fill("black")
+
+
+def randomize_color(colorLimit1, colorLimit2):
+    r = random.randint(colorLimit1[0], colorLimit2[0])
+    g = random.randint(colorLimit1[1], colorLimit2[1])
+    b = random.randint(colorLimit1[2], colorLimit2[2])
+    rgb = (r,g,b)
+    return rgb
+
+
+
+screen = None
+screen_color = "black"
+
+grid_first_color = (0,0,0)
+grid_last_color = (33,33,33)
+
+snake_first_color = (0,255,0)
+snake_last_color = (0,150,0)
+
+portal_first_color = (0,0,150)
+portal_last_color = (0,200,255)
+
+food_color = "red"
+
+obstacle_color = (200,200,200)
