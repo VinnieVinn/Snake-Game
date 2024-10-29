@@ -55,6 +55,8 @@ def randomizeObstaclePos(obstacleTypes, grid_width, grid_height, ignore_list = [
 def addListHead(list: list, item):
     list.insert(0, item)
 
-
 def removeTail(snake):
     return snake.pop(len(snake)-1)
+
+def sumTuples(tup1: tuple, tup2: tuple) -> tuple:
+    return tuple(map(lambda i, j: i + j, tup1, tup2))

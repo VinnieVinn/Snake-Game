@@ -19,9 +19,9 @@ getFrames = 0
 gameSpeed = main_menu.gameSpeed # Frames
 fpsLimit = 120
 
-snake = [[0, 0], [1, 0], [2, 0], [2, 1]]
+snake = [(0, 0), (1, 0), (2, 0), (2, 1)]
 snake_start_pos = (0, 0)
-snake_dir = pygame.Vector2(0, 1)
+snake_dir = (0, 1)
 UP = (0, -1)
 DOWN = (0, 1)
 RIGHT = (1, 0)
@@ -39,8 +39,8 @@ for i in range(obstacleAmount):
 
 
 food_pos = gamelogic.randomPos(grid_width, grid_height, snake + obstacles)
-portal_1 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos]))
-portal_2 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1]))
+portal_1 = gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos])
+portal_2 = gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1])
 
 
 timer = 0
@@ -52,7 +52,7 @@ end = False
 def new_input(direction):
     if direction == last_direction or direction in input_buffer:
         return
-    if direction[0] + snake_dir[0] == 0 and direction[1] + snake_dir[1] == 0:
+    if gamelogic.sumTuples(direction, snake_dir) == (0, 0):
         return
     if len(input_buffer) < 2:
         input_buffer.append(direction)
@@ -104,7 +104,7 @@ while running:
                 last_direction = snake_dir
 
 
-            gamelogic.addListHead(snake, snake[0]+snake_dir)
+            gamelogic.addListHead(snake, gamelogic.sumTuples(snake[0], snake_dir))
 
             if gamelogic.isCollidingWithSelf(snake):
                 end = True                
@@ -113,13 +113,13 @@ while running:
 
             if gamelogic.isCollidingWithWall(snake, grid_width, grid_height):
                 if snake_dir == UP: 
-                    snake[0][1] = grid_height-1
+                    snake[0] = (snake[0][0], grid_height-1)
                 elif snake_dir == DOWN: 
-                    snake[0][1] = 0
+                    snake[0] = (snake[0][0], 0)
                 elif snake_dir == RIGHT:
-                    snake[0][0] = 0
+                    snake[0] = (0, snake[0][1])
                 elif snake_dir == LEFT:
-                    snake[0][0] = grid_width-1
+                    snake[0] = (grid_width - 1, snake[0][1])
         
 
             if snake[0] == portal_1:
@@ -128,8 +128,8 @@ while running:
                 snake[0] = portal_1
 
             if snake[-1] == portal_1 or snake[-1] == portal_2:
-                portal_1 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_2]))
-                portal_2 = pygame.Vector2(gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1]))
+                portal_1 = gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_2])
+                portal_2 = gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1])
 
             if snake[0] == food_pos:
                 food_pos = gamelogic.randomPos(grid_width, grid_height, snake + obstacles)
