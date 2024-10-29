@@ -33,10 +33,10 @@ pygame.display.set_caption('Main Menu')
 
 
 players = 1
-gridWidth = 10
-gridHeight = 10
-obstacles = 0
-gameSpeed = 6
+gridWidth = 15
+gridHeight = 12
+obstacles = 6
+gameSpeed = 7
 
 options = [{"Start":load_img("\\sprites\\start.png")}, 
            {"PlayersText":load_text("Spelare:", "freesansbold.ttf", 32, True, "green", "black")},

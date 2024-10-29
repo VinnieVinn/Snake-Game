@@ -75,8 +75,8 @@ screen_color = "black"
 grid_first_color = (0,0,0)
 grid_last_color = (33,33,33)
 
-snake_first_color = [(0,255,0), (255, 0, 0)]
-snake_last_color = [(0,150,0), (150, 0, 0)]
+snake_first_color = [(0,255,0), (255,0,0)]
+snake_last_color = [(0,150,0), (150,0,0)]
 
 portal_first_color = (0,0,150)
 portal_last_color = (0,200,255)

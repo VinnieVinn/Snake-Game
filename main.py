@@ -37,7 +37,10 @@ if main_menu.players == 2:
 
 obstacleTypes = [[(0, 0), (0, 1), (0, 2)], 
             [(0, 0), (0, 1), (1, 1)],
-            [(0, 0), (1, 0), (2, 0)]]
+            [(0, 0), (1, 0), (2, 0)],
+            [(0, 0), (0, 1), (0, 2)],
+            [(0, 0), (1, 0), (0, 1), (1, 1)],
+            [(1, 0), (1, 1), (1, 2), (0, 2)]]
 obstacles = []
 spawn_ignore_list = snakes[0].copy()
 if main_menu.players == 2:
@@ -83,7 +86,7 @@ while running:
     keys = pygame.key.get_pressed()
 
     if end: 
-        scoreText = text.Text(0, 0, f"Du fick {score} poäng!", "freesansbold.ttf", 0, True, "white", "black")
+        scoreText = text.Text(0, 0, f"Ni fick {score} poäng!", "freesansbold.ttf", 0, True, "white", "black")
         underText = text.Text(0, 0, "Tryck på mellanslag för att avsluta", "freesansbold.ttf", 0, True, (200,200,200), "black")
         graphics.draw_end_screen(scoreText, underText)
 
