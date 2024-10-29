@@ -26,6 +26,7 @@ UP = (0, -1)
 DOWN = (0, 1)
 RIGHT = (1, 0)
 LEFT = (-1, 0)
+
 last_direction = DOWN
 input_buffer = []
 
@@ -132,7 +133,7 @@ while running:
                 portal_2 = gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [food_pos, portal_1])
 
             if snake[0] == food_pos:
-                food_pos = gamelogic.randomPos(grid_width, grid_height, snake + obstacles)
+                food_pos = gamelogic.randomPos(grid_width, grid_height, snake + obstacles + [portal_1, portal_2])
                 score += 1
             else:
                 gamelogic.removeTail(snake)

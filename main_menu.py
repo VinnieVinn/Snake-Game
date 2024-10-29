@@ -40,19 +40,38 @@ gameSpeed = 6
 
 options = [{"Start":load_img("\\sprites\\start.png")}, 
            {"PlayersText":load_text("Spelare:", "freesansbold.ttf", 32, True, "green", "black")},
-           {"PlayersLeftArrow":load_img("\\sprites\\arrow.png"), "PlayersValue":load_text(f"{players}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), "PlayersRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))},
+           {
+               "PlayersLeftArrow":load_img("\\sprites\\arrow.png"), 
+               "PlayersValue":load_text(f"{players}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), 
+               "PlayersRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))
+               },
            {"WidthText":load_text("Spelplan bredd:", "freesansbold.ttf", 32, True, "green", "black")},
-           {"WidthLeftArrow":load_img("\\sprites\\arrow.png"), "WidthValue":load_text(f"{gridWidth}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), "WidthRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))},
-           {"HeightText":load_text("Spelplan höjd:", "freesansbold.ttf", 32, True, "green", "black")},
-           {"HeightLeftArrow":load_img("\\sprites\\arrow.png"), "HeightValue":load_text(f"{gridHeight}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), "HeightRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))},
+           {
+               "WidthLeftArrow":load_img("\\sprites\\arrow.png"), 
+               "WidthValue":load_text(f"{gridWidth}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), 
+               "WidthRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))
+               },
+           {
+               "HeightText":load_text("Spelplan höjd:", "freesansbold.ttf", 32, True, "green", "black")},
+           {
+               "HeightLeftArrow":load_img("\\sprites\\arrow.png"), 
+               "HeightValue":load_text(f"{gridHeight}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), 
+               "HeightRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))
+               },
            {"ObstaclesText":load_text("Hinder:", "freesansbold.ttf", 32, True, "green", "black")},
-           {"ObstaclesLeftArrow":load_img("\\sprites\\arrow.png"), "ObstaclesValue":load_text(f"{obstacles}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), "ObstaclesRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))},
+           {
+               "ObstaclesLeftArrow":load_img("\\sprites\\arrow.png"), 
+               "ObstaclesValue":load_text(f"{obstacles}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), 
+               "ObstaclesRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))
+               },
            {"GameSpeedText":load_text("Hastighet:", "freesansbold.ttf", 32, True, "green", "black")},
-           {"GameSpeedLeftArrow":load_img("\\sprites\\arrow.png"), "GameSpeedValue":load_text(f"{gameSpeed}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), "GameSpeedRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))},
+           {
+               "GameSpeedLeftArrow":load_img("\\sprites\\arrow.png"), 
+               "GameSpeedValue":load_text(f"{gameSpeed}", "freesansbold.ttf", 47, True, "black", "#ffffff00"), 
+               "GameSpeedRightArrow": flip_img_x(load_img("\\sprites\\arrow.png"))
+               },
            {"Exit":load_img("\\sprites\\exit.png")}, 
            ]
-
-
 
 i = 0
 itemVerticalOffset = margin[1]
