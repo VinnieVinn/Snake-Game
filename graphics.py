@@ -24,7 +24,6 @@ def drawSnake(snake: list, block_size: int):
         rect = pygame.Rect(snake[i][0]*block_size, snake[i][1]*block_size, block_size, block_size)
         
         new_snake_color = (new_snake_color[0]-snake_color_iteration[0], new_snake_color[1]-snake_color_iteration[1], new_snake_color[2]-snake_color_iteration[2])
-        print(i, " : ", new_snake_color)
         pygame.draw.rect(screen, new_snake_color, rect)
 
 
